@@ -61,6 +61,12 @@ issue.xpath
 
 The `issues` array contains all issues returned by the checker, but you'll typically be more interested in `errors` (that contains all issues with certainty >= 80) and `warnings` (that contains all issues with certainty < 80).
 
+## Using a Tenon Enterprise instance
+
+By default, Mortise will query the Tenon.io API at http://tenon.io/api/ but if you're using your own Tenon Enterprise instance you can set its location like this:
+
+Mortise.check('http://example.com', 'YOUR-API-KEY', tenon_uri: 'http://yourchecker.com')
+
 ## Development
 
 After checking out the repo, run `bundle` to install dependencies. Then, run `bundle console` for an interactive prompt that will allow you to experiment.

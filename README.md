@@ -1,8 +1,6 @@
-# Mortise
+# Mortise [![travis build status](https://secure.travis-ci.org/sitevalidator/mortise.png?branch=master)](http://travis-ci.org/sitevalidator/mortise) [![Code Climate](https://codeclimate.com/github/sitevalidator/mortise/badges/gpa.svg)](https://codeclimate.com/github/sitevalidator/mortise) [![Dependency Status](https://gemnasium.com/sitevalidator/mortise.png)](https://gemnasium.com/sitevalidator/mortise)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/mortise`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Mortise is a Ruby client for the [Tenon.io](http://tenon.io/documentation/) accessibility checker. It lets you easily check for accessibility issues on web pages.
 
 ## Installation
 
@@ -22,13 +20,50 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You'll need an API Key to use Tenon.io, so first [register](http://tenon.io/register.php) and come back when you've got your API Key.
+
+To check accessibility on a web page, just pass Mortise the URL to check and the API key, like this:
+
+```ruby
+checker = Mortise.check('http://validationhell.com', 'YOUR-API-KEY')
+```
+
+Then, you can check the JSON response like this:
+
+```ruby
+checker.raw # {
+            #   "resultSet":[
+            #     {
+            #       "bpID":1,
+            #       "certainty":100,
+            #       "errorDescription":"All images must have an alt attribute...
+```
+
+Every issue returned will also accessible in a more friendly way like this, where the
+snake_cased Ruby attributes correspond to the camelCased JSON attributes:
+
+```ruby
+issue = checker.issues.first
+
+issue.bp_id
+issue.certainty
+issue.error_description
+issue.error_snippet
+issue.error_title
+issue.position
+issue.priority
+issue.result_title
+issue.signature
+issue.standards
+issue.t_id
+issue.xpath
+```
+
+The `issues` array contains all issues returned by the checker, but you'll typically be more interested in `errors` (that contains all issues with certainty >= 80) and `warnings` (that contains all issues with certainty < 80).
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release` to create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+After checking out the repo, run `bundle` to install dependencies. Then, run `bundle console` for an interactive prompt that will allow you to experiment.
 
 ## Contributing
 

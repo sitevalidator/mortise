@@ -1,0 +1,8 @@
+{
+    "response": {
+        "status": "400",
+        "message": "Bad Request",
+        "code": "blank_url_or_src",
+        "moreInfo": "https://tenon.io/documentation/#blank_url_or_src"
+    }
+}

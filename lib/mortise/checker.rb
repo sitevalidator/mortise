@@ -15,10 +15,7 @@ module Mortise
     end
 
     def raw
-      @raw ||= JSON.parse HTTParty.post(tenon_uri,
-                                        body: { url: url, key: key },
-                                        headers: { 'Content-Type'  => 'application/x-www-form-urlencoded',
-                                                   'Cache-Control' => 'no-cache' }).body
+      @raw ||= JSON.parse response.body
     end
 
     def issues
@@ -37,6 +34,18 @@ module Mortise
 
     def defaults
       { tenon_uri: 'https://tenon.io/api/' }
+    end
+
+    def response
+      fail(ERRORS[tenon_response.code], tenon_response.body) if tenon_response.code != 200
+
+      tenon_response
+    end
+
+    def tenon_response
+      @tenon_response ||= HTTParty.post(tenon_uri, body: { url: url, key: key },
+                                                   headers: { 'Content-Type'  => 'application/x-www-form-urlencoded',
+                                                              'Cache-Control' => 'no-cache' })
     end
   end
 end

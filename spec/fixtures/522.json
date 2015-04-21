@@ -1,0 +1,8 @@
+{
+    "response": {
+        "status": "522",
+        "message": "Connection Time Out",
+        "code": "request_timeout",
+        "moreInfo": "https://tenon.io/documentation/#request_timeout"
+    }
+}

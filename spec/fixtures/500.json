@@ -1,0 +1,8 @@
+{
+    "response": {
+        "status": "500",
+        "message": "Internal Server Error",
+        "code": "exception",
+        "moreInfo": "https://tenon.io/docs/exception"
+    }
+}

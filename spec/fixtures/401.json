@@ -1,0 +1,8 @@
+{
+    "response": {
+        "status": "401",
+        "message": "Unauthorized",
+        "code": "api_credentials_invalid",
+        "moreInfo": "https://tenon.io/documentation/#api_credentials_invalid"
+    }
+}

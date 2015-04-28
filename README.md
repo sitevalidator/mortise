@@ -65,7 +65,19 @@ The `issues` array contains all issues returned by the checker, but you'll typic
 
 By default, Mortise will query the Tenon.io API at http://tenon.io/api/ but if you're using your own Tenon Enterprise instance you can set its location like this:
 
+```ruby
 Mortise.check('http://example.com', 'YOUR-API-KEY', tenon_uri: 'http://yourchecker.com')
+```
+
+## Specifying a different Tenon App ID
+
+By default, Mortise will pass its own identifier on the `appID` parameter, so that Tenon can keep usage stats for Mortise.
+
+If you want to use a different value, you can override it like this:
+
+```ruby
+Mortise.check('http://example.com', 'YOUR-API-KEY', tenon_app_id: 'your-app-id')
+```
 
 ## Development
 

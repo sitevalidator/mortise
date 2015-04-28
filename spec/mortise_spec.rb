@@ -26,6 +26,15 @@ describe Mortise do
 
       expect(checker.tenon_uri).to eq 'http://checker.example.com/'
     end
+
+    it 'tenon appID can be set' do
+      checker = Mortise.check('http://validationhell.com', '1234',
+                              tenon_app_id: 'abcde')
+
+      stub_tenon_request(200, fixture_file('validationhell.json'), 'abcde')
+
+      expect(checker.raw).to eq JSON.parse(fixture_file('validationhell.json'))
+    end
   end
 
   describe 'checking markup' do

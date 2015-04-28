@@ -3,7 +3,7 @@ require 'json'
 
 module Mortise
   class Checker
-    attr_reader :url, :tenon_uri, :key
+    attr_reader :url, :tenon_uri, :key, :tenon_app_id
 
     def initialize(url, key, options = {})
       options = defaults.merge(options)
@@ -11,7 +11,8 @@ module Mortise
       @url       = url
       @key       = key
 
-      @tenon_uri = options[:tenon_uri]
+      @tenon_uri    = options[:tenon_uri]
+      @tenon_app_id = options[:tenon_app_id]
     end
 
     def raw
@@ -33,7 +34,7 @@ module Mortise
     private
 
     def defaults
-      { tenon_uri: 'https://tenon.io/api/' }
+      { tenon_uri: 'https://tenon.io/api/', tenon_app_id: Mortise::TENON_APP_ID }
     end
 
     def response
@@ -43,7 +44,7 @@ module Mortise
     end
 
     def tenon_response
-      @tenon_response ||= HTTParty.post(tenon_uri, body: { url: url, key: key },
+      @tenon_response ||= HTTParty.post(tenon_uri, body: { url: url, key: key, appID: tenon_app_id },
                                                    headers: { 'Content-Type'  => 'application/x-www-form-urlencoded',
                                                               'Cache-Control' => 'no-cache' })
     end
